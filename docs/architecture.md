@@ -1,65 +1,94 @@
-# Diary
+# Architecture
 
-Chronological log of progress, discoveries and decisions.
+## System Overview
 
----
+Contextus operates on six layers working simultaneously:
 
-## August 2025 — The Idea
-
-Initial concept: an AI-powered text corrector that adapts to the user's writing style and conversation context, avoiding common autocorrect mistakes by understanding meaning and communication patterns.
-
-First documented goal: detect patterns in both text and conversation context, understand sentence meaning rather than individual words, and provide personalized corrections tailored to each user's style.
-
----
-
-## UPDATE - 09/03/2026
-
-## March 2026 — Theoretical Foundation Begins
-
-Started structured study of the theoretical foundation required to build Contextus.
-
-**Key concepts established:**
-- Token as the basic unit of text processing
-- Context as the source of meaning — a word alone means nothing
-- Tendency, rate of change, and exogenous variables as the backbone of temporal pattern recognition
-- Reinforcement learning as the mechanism behind silent user-driven training
-- Weighted memory as the solution for stable, non-destructive learning
-- Semantic ambiguity as one of the core unsolved challenges
-- Attention mechanism as the filter that makes context-aware suggestions possible
-
-**Key design decisions made:**
-- The system will distinguish habit from error — user patterns are preserved, not corrected
-- Learning will be stable and noise-resistant — one rejected suggestion does not rewrite the user profile
-- Emotional tone will be recognized but never used manipulatively
-- Informed consent is a non-negotiable ethical requirement before personalization activates
-
-**Open problem identified:**  
-Emotional context recognition across multiple conversations as a signal for better suggestions — raises significant ethical questions around privacy and behavioral influence. Noted as a potential differentiator if handled responsibly.
-
-**Tools in progress:**  
-Completed a 28-hour AI bootcamp. Starting a Data Engineering and Machine Learning bootcamp for hands-on Python and ML foundations.
+```
+┌─────────────────────────────────────────┐
+│         General Language Base           │
+│   Pre-trained on broad language data    │
+├─────────────────────────────────────────┤
+│          Personal User Profile          │
+│   Weighted memory + habit detection     │
+├─────────────────────────────────────────┤
+│     Social Context (Optional Layer)     │
+│  Public writing patterns from socials   │
+├─────────────────────────────────────────┤
+│        Local Conversation Context       │
+│         Recent message history          │
+├─────────────────────────────────────────┤
+│          External Variables             │
+│    Time of day, day of week, partner    │
+├─────────────────────────────────────────┤
+│       Emotional Tone Recognition        │
+│        Read-only, non-manipulative      │
+└─────────────────────────────────────────┘
+```
 
 ---
 
-## March 2026 — Concept Expansion: Security, Privacy & the Digital Twin
+## Layer Descriptions
 
-A cybersecurity class prompted a broader exploration of what Contextus could become — and what risks it carries.
+### 1. General Language Base
+Pre-trained on broad language data to understand standard patterns, common phrases and linguistic structure. This is the foundation every user shares.
 
-**Key discoveries:**
+### 2. Personal User Profile
+Learns each user's individual habits over time — vocabulary, shortcuts, tone. Uses **weighted memory**, meaning old patterns are never deleted, only adjusted as behavior evolves.
 
-The same system that builds a user's linguistic profile to improve suggestions could theoretically be used to impersonate that user. This is the **dual-use problem** — the same technology that defends can attack. Acknowledged as a permanent design consideration, not a reason to stop building.
+> Example: if a user gradually shifts from "bora" to "vamos", the system detects the transition and begins suggesting both — reflecting the real gradual change.
 
-**The Digital Twin concept:**
-Integrating social media data alongside messages would create a richer, more accurate user profile — not just how the person writes privately, but how they communicate publicly. Combined, this approaches a **behavioral digital twin**: a computational replica of someone's linguistic identity. Powerful for personalization. Dangerous if misused.
+### 3. Social Context (Optional Layer)
+With explicit user consent, integrates public writing patterns from social media to enrich the personal profile. This layer makes the profile significantly more accurate from the start — reducing the cold start problem where the system has little data to learn from initially.
 
-**The data custody problem:**
-Identified that the most critical risk is not the tool itself, but who has access to the data it generates. Investors, companies, governments — all potential vectors of misuse even if the product itself is ethical.
+> This layer is strictly opt-in. It enriches suggestions, never surveillance.
 
-**The solution — Federated Learning:**
-User profiles stay on the user's device. No readable data leaves the device. The central model learns general language patterns only through abstract mathematical adjustments — nothing that can be reversed into individual data. Not even the developer can access a user's profile. This makes the data structurally impossible to sell, steal, or subpoena.
+### 4. Local Conversation Context
+Reads the recent message history in real time to understand what is being discussed and how the conversation is flowing before making any suggestion.
 
-**Core principle established:**
+### 5. External Variables (Exogenous Variables)
+Factors outside the message itself that influence behavior:
+- Time of day → suggests "bom dia" vs "boa noite"
+- Day of week → weekday vs weekend communication patterns
+- Conversation partner → formal vs informal vocabulary
+
+### 6. Emotional Tone Recognition
+Recognizes shifts in emotional tone across the conversation and adjusts suggestions accordingly. **This layer reads emotion as a signal, not a directive** — it never pushes the user toward a specific emotional state.
+
+---
+
+## Key Design Decisions
+
+### Habit vs. Error Detection
+The system distinguishes between a linguistic habit and a genuine mistake. Habits are preserved. Errors are corrected.
+
+### Stable Learning Model
+Suggestions are not updated after every single interaction. The system is resistant to noise — an ignored suggestion on a rushed morning does not rewrite the user's profile. Patterns are confirmed over time.
+
+### Ethical Scope
+The corrector improves communication. It does not make decisions for the user, push emotional states, or manipulate behavior. Informed consent is required before personalization activates.
+
+---
+
+## Privacy Architecture — Federated Learning
+
+All personal profile data stays on the user's device. No readable user data is ever transmitted to external servers.
+
+```
+User Device                          Central Server
+┌─────────────────────┐             ┌──────────────────┐
+│  Personal Profile   │             │   General Model  │
+│  (never leaves)     │──────────▶  │  (improves from  │
+│                     │  abstract   │  abstract math   │
+│  Conversation data  │  math only  │  adjustments,    │
+│  (never leaves)     │             │  not raw data)   │
+└─────────────────────┘             └──────────────────┘
+```
+
+**What this means in practice:**
+- The developer cannot access user profiles
+- Investors have no data to buy
+- Governments have nothing to subpoena
+- A data breach exposes nothing readable
+
 > Contextus is the first corrector that knows you without exposing you.
-
-**Scope clarified:**
-The project remains a text corrector. Security and intelligence applications were explored conceptually but are outside the current scope. The federated architecture is not a future feature — it is a founding principle.
