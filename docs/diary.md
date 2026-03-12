@@ -1,3 +1,43 @@
+# last update 12/03/2025
+
+## March 2026 — Neural Networks: The Heart of Contextus
+
+Studied how neural networks function and how they apply directly to Contextus.
+
+**Key concepts established:**
+
+- A neural network doesn't process one piece of information at a time — 
+it processes everything simultaneously, refining through layers until 
+reaching a decision.
+
+- False positive vs false negative — in security, a false negative 
+(missing a real threat) is more dangerous than a false positive 
+(false alarm). This applies directly to anomaly detection.
+
+- Adversarial training — training one model to attack and another to 
+defend simultaneously. Both evolve together. The vaccine analogy.
+
+**Key insight:**
+
+The neural network is the heart of Contextus. Every concept studied 
+so far — tokens, context, temporal series, exogenous variables, 
+weighted memory, Federated Learning — exists to feed the network. 
+It's the point where all information converges into a suggestion.
+
+**Contextus mapped as a system:**
+- Tokens and context → the eyes
+- Temporal series → the memory
+- Exogenous variables → the senses
+- Federated Learning → the skin
+- Neural Network → the heart
+
+**Project direction confirmed:**
+Contextus remains the main laboratory. The broader vision — 
+behavioral anomaly detection for security applications — 
+is the long-term destination. Same foundation, different directions.
+
+---
+
 # last update 09/03/2025
 
 # Diary
